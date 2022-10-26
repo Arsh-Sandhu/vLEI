@@ -1,0 +1,133 @@
+{
+  "$id": "EwOOWfc-aiPp1fAeqBsS6AKdey_4LTVt1qwshCH4VFF8",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Email Data Attestation",
+  "description": "A data attestation against file, linked to a vLEI credential",
+  "credentialType": "OriginEmailAttestation",
+  "properties": {
+    "v": {
+      "type": "string"
+    },
+    "d": {
+      "type": "string"
+    },
+    "i": {
+      "type": "string"
+    },
+    "ri": {
+      "description": "credential status registry",
+      "type": "string"
+    },
+    "s": {
+      "description": "schema SAID",
+      "type": "string"
+    },
+    "a": {
+      "description": "data block",
+      "properties": {
+        "d": {
+          "type": "string"
+        },
+        "dt": {
+          "description": "signed date time",
+          "format": "date-time",
+          "type": "string"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "fileDigest": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "dt",
+        "fileName",
+        "fileDigest"
+      ],
+      "type": "object"
+    },
+    "e": {
+      "oneOf": [
+        {
+          "description": "Chained vLEI OOR Credential",
+          "properties": {
+            "d": {
+              "description": "SAID of edge block containing OOR Credential node",
+              "type": "string"
+            },
+            "oor": {
+              "description": "node SAID of signer OOR credential",
+              "properties": {
+                "n": {
+                  "type": "string"
+                },
+                "s": {
+                  "type": "string",
+                  "description": "SAID of required schema of the credential pointed to by this node",
+                  "const": "E2RzmSCFmG2a5U2OqZF-yUobeSYkW-a3FsN82eZXMxY0"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "n",
+                "s"
+              ],
+              "type": "object"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "d",
+            "oor"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Chained vLEI ECR Credential",
+          "properties": {
+            "d": {
+              "description": "SAID of edge block contai0ning ECR Credential node",
+              "type": "string"
+            },
+            "ecr": {
+              "description": "node SAID of signer ECR credential",
+              "properties": {
+                "n": {
+                  "type": "string"
+                },
+                "s": {
+                  "type": "string",
+                  "description": "SAID of required schema of the credential pointed to by this node",
+                  "const": "ECr_axOPYff2VQl98Dx9n2-mwFSK4zD5ak88S-tJiJP0"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "n",
+                "s"
+              ],
+              "type": "object"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "d",
+            "ecr"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "i",
+    "ri",
+    "s",
+    "d",
+    "e"
+  ],
+  "type": "object"
+}
